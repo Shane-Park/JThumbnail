@@ -43,6 +43,7 @@ public class JODWordConverterThumbnailer extends JODConverterThumbnailer {
         return new String[]{
                 "text/plain",
                 "text/rtf",
+                "application/msword",
                 "application/vnd.ms-word",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",

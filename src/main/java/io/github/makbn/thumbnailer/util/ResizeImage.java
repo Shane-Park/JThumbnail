@@ -23,7 +23,8 @@ package io.github.makbn.thumbnailer.util;
 
 import io.github.makbn.thumbnailer.ThumbnailerException;
 import io.github.makbn.thumbnailer.UnsupportedInputFileFormatException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,7 +36,7 @@ import java.io.InputStream;
 
 public class ResizeImage {
 
-    private static final Logger mLog = Logger.getLogger(ResizeImage.class);
+    protected static Logger mLog = LoggerFactory.getLogger(ResizeImage.class);
 
     private BufferedImage inputImage;
     private boolean isProcessed = false;

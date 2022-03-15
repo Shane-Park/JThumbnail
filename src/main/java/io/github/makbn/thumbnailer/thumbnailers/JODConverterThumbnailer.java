@@ -28,12 +28,12 @@ import io.github.makbn.thumbnailer.util.Platform;
 import io.github.makbn.thumbnailer.util.TemporaryFilesManager;
 import io.github.makbn.thumbnailer.util.mime.MimeTypeDetector;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.jodconverter.OfficeDocumentConverter;
 import org.jodconverter.office.LocalOfficeManager;
 import org.jodconverter.office.OfficeException;
 import org.jodconverter.office.OfficeManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public abstract class JODConverterThumbnailer extends AbstractThumbnailer {
      * How long may a service work take? (in ms)
      */
     private static final long TIMEOUT = 3600000;
-    protected static Logger mLog = LogManager.getLogger(JODConverterThumbnailer.class.getName());
+    protected static Logger mLog = LoggerFactory.getLogger(JODConverterThumbnailer.class.getName());
     /**
      * JOD Office Manager
      */
@@ -125,7 +125,7 @@ public abstract class JODConverterThumbnailer extends AbstractThumbnailer {
             officeManager.start();
             mLog.warn("openoffice server started!");
         } catch (OfficeException e) {
-            mLog.warn(e);
+            mLog.warn("{}", e);
         }
         officeConverter = new OfficeDocumentConverter(officeManager);
     }
@@ -158,7 +158,7 @@ public abstract class JODConverterThumbnailer extends AbstractThumbnailer {
 
         File outputTmp = null;
         try {
-            outputTmp = File.createTempFile("jodtemp",   "." + getStandardOpenOfficeExtension());
+            outputTmp = File.createTempFile("jodtemp", "." + getStandardOpenOfficeExtension());
 
             if (Platform.isWindows())
                 input = new File(input.getAbsolutePath().replace("\\\\", "\\"));
@@ -166,7 +166,7 @@ public abstract class JODConverterThumbnailer extends AbstractThumbnailer {
             try {
                 officeConverter.convert(input, outputTmp);
             } catch (OfficeException e) {
-                mLog.warn(e);
+                mLog.warn("{}", e);
                 throw new ThumbnailerException();
 
             }
